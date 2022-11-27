@@ -7,10 +7,10 @@ socket.addEventListener('open', ()=> {
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: [],
             datasets: [{
                 label: '# of Votes',
-                data: [12, 20, 23, 25, 22, 23],
+                data: [],
                 borderWidth: 1
             }]
         },
@@ -35,4 +35,14 @@ socket.addEventListener("message", event => {
     date.innerText = "Measurement date: " + mDate;
     hr.innerText = "Heart rate: " + bpm;
     socket.send("client" + event.data.toString());
+    const ctx = document.getElementById('myChart');
+    addData(ctx, mDate, bpm);
 });
+
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
