@@ -16,6 +16,7 @@ let port = 3003;
 let client = mqtt.connect(bkrAddr, {clientId:clntID});
 let server = http.createServer(app).listen(port);
 
+
 app.use('/static', express.static(path.resolve(__dirname, 'views')))
 
 const wss = new WebSocketServer({
@@ -63,4 +64,5 @@ app.get('/', (req, res) => {
 });
 
 app.get('/home.js', (req, res) => res.sendFile(path.resolve(__dirname, 'views/home.js')));
+app.get('/data.js', (req, res) => res.sendFile(path.resolve(__dirname, 'views/data.js')));
 app.listen(3002);
