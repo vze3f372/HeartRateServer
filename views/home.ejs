@@ -2,20 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>Heart Rate</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div>
-    <div class="name">Patient Name: <%=pName%></div>
-    <div class="date">Measurement date: <%=mDate%></div>
-    <div class="hr">Heart rate: <%=bpm%>  </div>
-</div>
+<main>
+    <div class="data">
+        <h1>Live Heart Rate Data
+            <div class="image-container">
+                <img src="heart.png" class="image">
+            </div>
+            <div class="livedata">
+                <div class="name">Patient name: <%= pName %></div>
+                <div class="date">Measurement date: <%= mDate %></div>
+                <div class="hr">Heart rate: <%= bpm %>  </div>
+            </div>
+        </h1>
+    </div>
+    <div class="grid-container">
+        <div class="grid-item">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <div>
+        <form>
+            <input class="button glow-button" id="del" type="submit" value="Empty Database"/>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const button = document.querySelector('form');
+        button.addEventListener('submit', e => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to delete this car?')) {
+                fetch('/clear', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            }
+            window.location.href = "/";
+        });
 
-<div style="width: 800px;"><canvas id="myChart"></canvas></div>
 
-<script src="/home.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </script>
+    <script src="/home.js"></script>
 
+</main>
 </body>
 
 </html>

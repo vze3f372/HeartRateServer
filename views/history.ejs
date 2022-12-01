@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Rate</title>
+</head>
+<style>
+    html {
+        font-family: Arial, sans-serif;
+    }
+
+    .grid-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+        justify-content: center;
+    }
+
+    .grid-item {
+    / / background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        font-size: 30px;
+        text-align: center;
+        width: 90%
+    }
+
+    h1 {
+        text-align: center;
+        color: #fde9f7;
+
+    }
+
+    .data {
+        background-color: #5e0512;
+        color: #fde9f7;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+</style>
+<body>
+<main>
+    <div class="data">
+        <h1>Historical Heart Rate Data</h1>
+    </div>
+    <div class="grid-container">
+        <div class="grid-item" style="width: 1000px;">
+            <canvas id="myHistoryChart"></canvas>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        (() => {
+            const ctx1 = document.getElementById("myHistoryChart");
+            const historyChart = new Chart(ctx1, {
+                type: "line",
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: "Heart Rate",
+                            data: [],
+                            borderWidth: 2,
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            });
+            console.log("Fetching")
+            fetch('/historydata')
+                .then(res => res.json())
+                .then(pData => {
+                    console.log(pData.length);
+                    for (const data of pData) {
+                        //console.log(datum);
+                        addData(historyChart, data.mTime, data.bpm);
+                    }
+                });
+        }).call({});
+
+        function addData(chart, label, data) {
+            chart.data.labels.push(label);
+            chart.data.datasets[0].data.push(data);
+            chart.update();
+        }
+    </script>
+
+
+</main>
+</body>
+
+</html>
