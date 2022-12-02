@@ -1,4 +1,10 @@
 "use strict";
+//You may change the values up until line 6
+let bkrAddr = "mqtt://192.168.1.254:1883"; //18.198.188.151:21883";//10.0.0.4:1883"
+let clntID = "joe";
+let topic = "Joe/HR";
+let debug = "debug";
+//you may not edit anything below this line
 
 const path = require("path");
 const {WebSocketServer} = require("ws");
@@ -8,10 +14,6 @@ const mqtt = require("mqtt");
 const sqlite3 = require("sqlite3");
 const app = express();
 const db = new sqlite3.Database(path.resolve(__dirname, "patient"));
-let bkrAddr = "mqtt://10.0.0.4:1883"; //18.198.188.151:21883";//10.0.0.4:1883"
-let clntID = "joe";
-let topic = "Joe/HR";
-let debug = "debug";
 let port = 3003;
 let client = mqtt.connect(bkrAddr, {clientId: clntID});
 let server = http.createServer(app).listen(port);
@@ -106,9 +108,9 @@ app.get("/historydata", async (req, res) => {
     }
 });
 
-app.delete("/clear", (req, res) => {
+app.delete ("/clear", async(req, res) => {
     try {
-        db.run("DELETE FROM pData;", (err) => {
+        await db.run("DELETE FROM pData;", (err) => {
             res.status(200);
         });
     } catch (e) {

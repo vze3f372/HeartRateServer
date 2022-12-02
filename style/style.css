@@ -13,7 +13,7 @@ html {
 }
 
 .grid-item {
-    background-color: rgba(45, 44, 44, 0.8);
+    background-color: rgba(241, 238, 238, 0.8);
     border: 1px solid rgba(59, 58, 58, 0.8);
     padding: 20px;
     font-size: 30px;
@@ -52,7 +52,7 @@ h1 {
 }
 
 body {
-    background: #1d1f20;
+    background: #ebf5f5;
     text-align: center;
     padding: 60px;
     font-family: sans-serif;
