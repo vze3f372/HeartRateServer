@@ -42,9 +42,6 @@ socket.addEventListener("open", () => {
         date.innerText = "Measurement date: " + mDate;
         hr.innerText = "Heart rate: " + bpm;
         socket.send("Message received");
-        // socket.send(JSON.parse(event.data).toString);
-
-        //chart = document.getElementById('myChart');
         addData(chart, mTime, bpm);
     });
 });

@@ -1,6 +1,6 @@
 "use strict";
 //You may change the values up until line 6
-let bkrAddr = "mqtt://192.168.1.254:1883"; //18.198.188.151:21883";//10.0.0.4:1883"
+let bkrAddr = "mqtt://10.0.0.4:1883"; //18.198.188.151:21883";//10.0.0.4:1883"
 let clntID = "joe";
 let topic = "Joe/HR";
 let debug = "debug";
@@ -48,8 +48,7 @@ client.on("error", (error) => {
 });
 
 client.on("message", (topic, message) => {
-    let pData = Object.assign(message);
-    console.log(pData);
+    let pData = JSON.parse(message);
     db.run(
         "insert into pData(pName, mDate, mTime, bpm)values ($pName, $mDate, $mTime, $bpm)",
         {
@@ -80,9 +79,6 @@ app.get("/", (req, res) => {
             } else {
                 pData.push(current);
             }
-            console.log(current);
-            //client.publish(topic, JSON.stringify(pData));
-            console.log(pData);
             res.render(path.resolve(__dirname, "views/home.ejs"), pData[0]);
         }
     );
