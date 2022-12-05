@@ -12,12 +12,11 @@ const chart = new Chart(ctx, {
                 borderColor: 'rgb(143,8,8)',
                 backgroundColor: 'rgb(143,8,8)',
                 borderWidth: 2,
+                lineTension: 0.4,
             },
         ],
     },
     options: {
-        tickColor: (45, 44, 44, 0.9),
-        backdropColor: (45, 44, 44, 0.9),
         aspectRatio: 3,
         maintainAspectRatio: true,
         scales: {
@@ -29,7 +28,7 @@ const chart = new Chart(ctx, {
 });
 
 const socket = new WebSocket(`ws://localhost:3003`);
-socket.addEventListener("open", (message) => {
+socket.addEventListener("open", () => {
     socket.send("WS Client Connected!");
     socket.addEventListener("message", (event) => {
         const pName = JSON.parse(event.data).pName;
@@ -46,7 +45,7 @@ socket.addEventListener("open", (message) => {
         // socket.send(JSON.parse(event.data).toString);
 
         //chart = document.getElementById('myChart');
-        addData(chart, mDate, bpm);
+        addData(chart, mTime, bpm);
     });
 });
 

@@ -18,9 +18,9 @@ let port = 3003;
 let client = mqtt.connect(bkrAddr, {clientId: clntID});
 let server = http.createServer(app).listen(port);
 
-app.use("/static", express.static(path.resolve(__dirname, "views")));
-app.use("/static", express.static(path.resolve(__dirname, "style")))
-app.use(express.static("static"));
+app.use("/views", express.static(path.resolve(__dirname, "views")));
+app.use("/style", express.static(path.resolve(__dirname, "style")))
+app.use("/static", express.static(path.resolve(__dirname, "static")));
 
 
 const wss = new WebSocketServer({
@@ -47,8 +47,8 @@ client.on("error", (error) => {
     process.exit(1);
 });
 
-client.on("message", (topic, message, packet) => {
-    let pData = JSON.parse(message);
+client.on("message", (topic, message) => {
+    let pData = Object.assign(message);
     console.log(pData);
     db.run(
         "insert into pData(pName, mDate, mTime, bpm)values ($pName, $mDate, $mTime, $bpm)",
@@ -96,10 +96,9 @@ app.get("/historydata", async (req, res) => {
     try {
         console.log("fetching data");
         db.all(
-            "select pName, mDate, mTime, bpm from pData order by id asc ;",
+            "select pName, mDate, mTime, bpm from pData;",
             (err, current) => {
-                let data = current;
-                res.json(data);
+                res.json(current);
             }
         );
     } catch (e) {
@@ -110,7 +109,7 @@ app.get("/historydata", async (req, res) => {
 
 app.delete ("/clear", async(req, res) => {
     try {
-        await db.run("DELETE FROM pData;", (err) => {
+        await db.run("DELETE FROM pData;", () => {
             res.status(200);
         });
     } catch (e) {
@@ -118,8 +117,8 @@ app.delete ("/clear", async(req, res) => {
     }
 });
 
-app.delete("/deletelast", (req, res) => {
-    db.run("DELETE FROM pData WHERE id = (SELECT MAX(id)) FROM pData");
+app.delete("/deletelast", (req,res) => {
+    db.run("DELETE FROM pData WHERE id = (SELECT MAX(id))");
 });
 
 app.get("/home.js", (req, res) =>
@@ -134,4 +133,7 @@ app.get("/style.css", (req, res) =>
     res.sendFile(path.resolve(__dirname, "style/style.css"))
 );
 
+app.get("/heart.png", (req, res )=> {
+    res.sendFile(path.resolve(__dirname, "static/heart.png"));
+});
 app.listen(3000);
