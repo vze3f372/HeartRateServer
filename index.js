@@ -2,7 +2,7 @@
 //You may change the values up until line 6
 let bkrAddr = "mqtt://192.168.1.254:1883"; //18.198.188.151:21883";//10.0.0.4:1883"
 let clntID = "joe";
-let topic = "Joe/HR";
+let topic = "Grete";
 let debug = "debug";
 //you may not edit anything below this line
 
@@ -64,7 +64,7 @@ client.on("message", (topic, message) => {
 
 app.get("/", (req, res) => {
   const query =
-    "CREATE TABLE IF NOT EXISTS tData (id INTEGER PRIMARY KEY AUTOINCREMENT, pName STRING, mDate STRING NOT NULL, mTime STRING NOT NULL, bpm INT NOT NULL);";
+    "CREATE TABLE IF NOT EXISTS pData (id INTEGER PRIMARY KEY AUTOINCREMENT, pName STRING, mDate STRING NOT NULL, mTime STRING NOT NULL, bpm INT NOT NULL);";
   db.run(query);
   db.get(
     "select pName, mDate, mTime, bpm from pData order by id desc limit 1;",
