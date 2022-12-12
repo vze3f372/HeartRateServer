@@ -1,77 +1,91 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900);
 
 html {
-    font-family: 'Lato';
-    background-color: black;
+  font-family: "Lato";
+  background-color: black;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #5c0e18;
+}
+
+.banner-title {
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+  color: lightgrey;
+  flex-grow: 1;
+}
+
+.banner-text {
+  font-size: 24px;
+  text-align: center;
+  color: lightgrey;
+  flex-grow: 1;
+}
+
+.banner-image {
+  position: absolute;
+  top: 12%;
+  right: 120px;
+  width: 150px;
+  height: 150px;
+  margin-left: auto;
 }
 
 .grid-container {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  justify-content: space-between;
+}
+.banner-title {
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
+  flex-grow: 1;
 }
 
 .grid-item {
-    background-color: rgba(241, 238, 238, 0.8);
-    border: 1px solid rgba(59, 58, 58, 0.8);
-    padding: 20px;
-    font-size: 30px;
-    text-align: center;
-    width: 100%;
-
+  background-color: rgba(241, 238, 238, 0.8);
+  border: 1px solid rgba(59, 58, 58, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  width: 100%;
 }
 
 .data {
-    padding-top: 20px;
-    font-size: 2.8em;
-    padding: 10px 0px;
-    background: #5c0e18;
-    font-weight: 800;
-}
-
-h1 {
-    color: lightgrey;
-    font-size: 1.5em;
-    padding: 10px 0;
-    font-weight: 800;
-}
-
-.livedata {
-    font-size: 24px;
-    position: center;
-}
-
-.image-container {
-    display: flex;
-    height: 150px;
-    position: absolute;
-    padding-left: 50px;
-    padding-bottom: 50px;
-    text-align: right;
+  padding-top: 20px;
+  font-size: 2.8em;
+  padding: 10px 0px;
+  background: #5c0e18;
+  font-weight: 800;
 }
 
 body {
-    background: #c2aeaf;
-    text-align: center;
-    padding: 60px;
-    font-family: sans-serif;
+  background: #c2aeaf;
+  text-align: center;
+  padding: 60px;
+  font-family: sans-serif;
 }
 
 .button {
-    font-size: 20px;
-    display: inline-block;
-    border: 1px solid white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 300;
-    margin-top: 30px;
+  font-size: 20px;
+  display: inline-block;
+  border: 1px solid white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 300;
+  margin-top: 30px;
 }
 
 .glow-button:hover {
-    transition: ease-in-out 0.15s;
-    background-color: #5e0512;
-    color: #bbbbbb;
+  transition: ease-in-out 0.15s;
+  background-color: #5e0512;
+  color: #bbbbbb;
 }
-
