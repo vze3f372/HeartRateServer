@@ -1,8 +1,8 @@
 "use strict";
 //You may change the values up until line 6
-let bkrAddr = "mqtt://192.168.1.254:1883"; //18.198.188.151:21883";//10.0.0.4:1883"
+let bkrAddr = "mqtt://10.0.0.4:1883"; //18.198.188.151:21883";//10.0.0.4:1883"
 let clntID = "joe";
-let topic = "Grete";
+let topic = "Joe/HR";
 let debug = "debug";
 //you may not edit anything below this line
 
@@ -92,9 +92,13 @@ app.get("/history", (req, res) => {
 app.get("/historydata", async (req, res) => {
   try {
     console.log("fetching data");
-    db.all("select pName, mDate, mTime, bpm from pData;", (err, current) => {
-      res.json(current);
-    });
+    db.all(
+      "select * from (select * from pData order by id desc limit 10) order by id asc; ",
+      (err, current) => {
+        console.log(current);
+        res.json(current);
+      }
+    );
   } catch (e) {
     console.log(e);
     res.status(404).send(e);
